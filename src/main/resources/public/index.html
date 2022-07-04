@@ -92,7 +92,7 @@
             document.querySelector("#rota").innerHTML = `Rota: <span class'rota'><a href='${url}' target='_blank'>/${url}</a></span>`
 
             load_div.style.display = 'flex';
-            fetch(`http://localhost:8080/${url}`, { mode: 'no-cors'})
+            fetch(`${url}`, { mode: 'no-cors'})
                 .then(response => response.json())
                 .then(json => {
                     document.querySelector("#json-saida").innerHTML = `JSON:\n${formatarJson(JSON.stringify(json, undefined, 2))}`
