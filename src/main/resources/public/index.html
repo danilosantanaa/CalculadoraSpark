@@ -98,8 +98,12 @@
                     document.querySelector("#json-saida").innerHTML = `JSON:\n${formatarJson(JSON.stringify(json, undefined, 2))}`
                 })
                 .catch(err => {
-                    alert('ERRO ao consultar o servidor');
                     console.log(err);
+                    Swal.fire(
+                        'Erro!',
+                        err,
+                        'error'
+                    );
                 })
                 .finally(() => {
                     load_div.style.display = 'none';
