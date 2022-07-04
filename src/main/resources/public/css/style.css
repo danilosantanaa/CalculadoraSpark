@@ -1,0 +1,145 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: #606060;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
+}
+
+#content {
+    width: 50%;
+    background: white;
+    margin: auto;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.4);
+}
+
+.info {
+    border-left: 5px solid green;
+    padding-left: 10px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    color: blueviolet;
+    margin-bottom: 4px;
+}
+
+p {
+    text-align: justify;
+}
+
+table {
+    border-collapse: collapse;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+table thead {
+    background-color: #1d1d1d;
+    color: white;
+}
+
+table tbody tr:nth-child(2n) {
+    background-color: #cecece;
+}
+
+table td, table th {
+    padding: 10px;
+}
+
+.inputs {
+    margin-top: 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.4);
+    padding: 15px;
+}
+
+form {
+    margin-top: 10px;
+    width: 100%;
+}
+
+form label, form input, form button {
+    margin-top: 10px;
+}
+
+form input, form select, form button{
+    padding: 10px;
+}
+
+form input, form select {
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+}
+
+form button, .btn_voltar {
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    background-color: #5e4d4d;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn_voltar {
+    padding: 10px;
+}
+
+#load {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    display: none;
+}
+
+pre {
+    background: #1e1e1e;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    overflow: hidden;
+    overflow-x: scroll;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+pre::-webkit-scrollbar {
+    height: 5px;
+}
+
+pre::-webkit-scrollbar-thumb {
+    background-color: red;
+    border-radius: 50px;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+    background: #b30000; 
+}
+
+a {
+    text-decoration: none;
+    color: #5e4d4d;
+}
+
+a:hover {
+    color: #1e1e1e;
+    text-decoration: underline;
+}

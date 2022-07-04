@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Minha API</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sweetalert2.min.css">
+    <style>
+        .chave {
+            color: yellow;
+        }
+
+        .propriedade {
+            color: red;
+        }
+
+        .valor {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <div class="info">
+            <h2>Como usar?</h2>
+            <p>Bastar colocar no navegador a rota que deseja realizar a operação, ou então usar de forma amigável um debug construido abaixo.</p>
+        </div>
+
+        <div class="info">
+            <div id="rota">Rota: --</div>
+            <pre id="json-saida">JSON: --</pre>
+        </div>
+
+        <div class="inputs">
+            <form method="get" action="#">
+                <select id="rotaID">
+                    <option value="-">ESCOLHA UMA OPÇÃO</option>
+                    <option value="somar">SOMAR</option>
+                    <option value="substrair">SUBTRAIR</option>
+                    <option value="dividir">DIVIDIR</option>
+                    <option value="multiplicacao">MULTIPLICAR</option>
+                    <option value="potencia">POTENCIA</option>
+                    <option value="raiz">RAIZ</option>
+                    <option value="porcentagem">PORCENTAGEM</option>
+                </select>
+                <input type="text" name="expr" id="exprID" placeholder="Digite a expresão aqui...">
+
+                <button id="btn_send">Enviar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="load">
+        <div>Carregando...</div>
+        <div id="gif"></div>
+    </div>
+    <script defer src="js/sweetalert2.min.js"></script>
+    <script defer src="js/sweetalert.Customized.js"></script>
+    <script>
+        const btnSend = document.querySelector("#btn_send");
+
+        btnSend.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            const load_div = document.querySelector("#load")
+            const rota = document.querySelector("#rotaID").value;
+            const expr = document.querySelector("#exprID").value;
+
+            if(rota == "-") {
+                Swal.fire(
+                    'Erro!',
+                    'Escolha uma operação!',
+                    'error'
+                );
+                return;
+            }
+
+            let url = `${rota}/${expr}`;
+
+            // Tratar potencia
+            url = url.replace("^", "/");
+
+            // Tratar porcentagem
+            url = url.replace("%", "/");
+
+            // Tirar espaço da rota
+            url = url.replace(" ", "");
+
+            // Mostrando na saída a rota gerada
+            document.querySelector("#rota").innerHTML = `Rota: <span class'rota'><a href='${url}' target='_blank'>/${url}</a></span>`
+
+            load_div.style.display = 'flex';
+            fetch(`http://localhost:8080/${url}`, { mode: 'no-cors'})
+                .then(response => response.json())
+                .then(json => {
+                    document.querySelector("#json-saida").innerHTML = `JSON:\n${formatarJson(JSON.stringify(json, undefined, 2))}`
+                })
+                .catch(err => {
+                    alert('ERRO ao consultar o servidor');
+                    console.log(err);
+                })
+                .finally(() => {
+                    load_div.style.display = 'none';
+                });
+        })
+
+
+        function formatarJson(jsonString) {
+            
+            // formatar propriedade do JSON
+            padrao = /(\".*\")(\s*\:\s*)(\".*\")/g
+            jsonString = jsonString.replace(padrao, "<span class='propriedade'>$1</span>$2<span class='valor'>$3</span>");
+
+           jsonString = jsonString.replace("\{", "<span class='chave'>{</span>")
+           jsonString = jsonString.replace("\}", "<span class='chave'>}</span>")
+
+           return jsonString
+        }
+    </script>
+</body>
+</html>
